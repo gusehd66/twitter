@@ -1,13 +1,37 @@
-import { addDoc, collection } from '@firebase/firestore';
+import { addDoc, collection, getDocs, onSnapshot, orderBy, query } from '@firebase/firestore';
 import { dbService } from 'fbase';
-import React, { useState } from 'react';
-const Home = () => {
+import React, { useEffect, useState } from 'react';
+const Home = ({ userObj }) => {
   const [tweet, setTweet] = useState("");
+  const [tweets, setTweets] = useState([]);
+
+  // const getTweets = async () => {
+  //   const dbTweets = await getDocs(collection(dbService, "tweets"));
+  //   dbTweets.forEach(document => {
+  //     const tweetObject = {
+  //       ...document.data(),
+  //       id: document.id,
+  //     }
+  //     setTweets(prev => [tweetObject, ...prev]);
+  //   });
+  // }
+
+  useEffect(() => {
+    onSnapshot(query(collection(dbService, 'tweets'), orderBy("createdAt", "desc")), snapshot => {
+      const tweetArr = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      setTweets(tweetArr);
+    });
+  }, []);
+
   const onSubmit = async (event) => {
     event.preventDefault();
     await addDoc(collection(dbService, "tweets"), {
-      tweet,
+      text: tweet,
       createdAt: Date.now(),
+      creatorId: userObj.uid,
     })
     setTweet("");
   };
@@ -30,6 +54,18 @@ const Home = () => {
           value="tweet"
         />
       </form>
+      <div>
+        {tweets.map(tweet => {
+          return (
+            <div key={tweet.id}>
+              <h4>
+                {tweet.text}
+              </h4>
+            </div>
+          )
+        }
+        )}
+      </div>
     </div>
   )
 
