@@ -7,8 +7,8 @@ const Tweet = ({ tweetObj, isOwner }) => {
   const [newTweet, setNewTweet] = useState(tweetObj.text);
 
   const onDeleteClick = async () => {
-    const ok = window.confirm("Are you sure you want to delete this tweet?")
-    if (ok) {
+    const okDelete = window.confirm("Are you sure you want to delete this tweet?")
+    if (okDelete) {
       //delete tweet
       // await dbService.doc(`tweets/${tweetObj.id}`).delete();
       await deleteDoc(doc(dbService, `tweets/${tweetObj.id}`));
