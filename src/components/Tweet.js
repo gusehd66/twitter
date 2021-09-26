@@ -1,5 +1,6 @@
 import { deleteDoc, doc, updateDoc } from '@firebase/firestore';
-import { dbService } from 'fbase';
+import { deleteObject, ref } from '@firebase/storage';
+import { dbService, storageService } from 'fbase';
 import React, { useState } from 'react';
 
 const Tweet = ({ tweetObj, isOwner }) => {
@@ -12,6 +13,9 @@ const Tweet = ({ tweetObj, isOwner }) => {
       //delete tweet
       // await dbService.doc(`tweets/${tweetObj.id}`).delete();
       await deleteDoc(doc(dbService, `tweets/${tweetObj.id}`));
+      if (tweetObj.attachmentUrl) {
+        await deleteObject(ref(storageService, tweetObj.attachmentUrl));
+      }
     }
   }
 
@@ -53,6 +57,7 @@ const Tweet = ({ tweetObj, isOwner }) => {
             <h4>
               {tweetObj.text}
             </h4>
+            {tweetObj.attachmentUrl && <img src={tweetObj.attachmentUrl} width="50px" height="50px" alt="img" />}
             {isOwner && (
               <>
                 <button onClick={onDeleteClick}>Delete Tweet</button>
