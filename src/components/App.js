@@ -33,7 +33,10 @@ function App() {
   return (
     <>
       {init ? <AppRouter refreshUser={refreshUser} isLoggedIn={Boolean(userObj)} userObj={userObj} /> : "Initialize..."}
-      <footer>&copy; Twitter {new Date().getFullYear()}</footer>
+      <footer>
+        <div>&copy; Twitter {new Date().getFullYear()}</div>
+        <div>Made By <span>Dongit</span></div>
+      </footer>
     </>
   );
 }
