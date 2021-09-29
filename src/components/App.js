@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
-import AppRouter from 'components/Router';
-import { authService } from 'fbase';
-import { updateProfile } from '@firebase/auth';
+import { useEffect, useState } from "react";
+import AppRouter from "components/Router";
+import { authService } from "fbase";
+import { updateProfile } from "@firebase/auth";
 
 function App() {
   const [init, setInit] = useState(false);
@@ -22,7 +22,7 @@ function App() {
       }
       setInit(true);
     });
-  }, [])
+  }, []);
 
   const refreshUser = () => {
     const user = authService.currentUser;
@@ -32,10 +32,20 @@ function App() {
 
   return (
     <>
-      {init ? <AppRouter refreshUser={refreshUser} isLoggedIn={Boolean(userObj)} userObj={userObj} /> : "Initialize..."}
+      {init ? (
+        <AppRouter
+          refreshUser={refreshUser}
+          isLoggedIn={Boolean(userObj)}
+          userObj={userObj}
+        />
+      ) : (
+        "Initialize..."
+      )}
       <footer>
         <div>&copy; Twitter {new Date().getFullYear()}</div>
-        <div>Made By <span>Dongit</span></div>
+        <div>
+          Made By <span>Dongit</span>
+        </div>
       </footer>
     </>
   );
