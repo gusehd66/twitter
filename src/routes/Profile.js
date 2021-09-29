@@ -1,7 +1,7 @@
 import { updateProfile } from '@firebase/auth';
 import { collection, getDocs, query, where } from '@firebase/firestore';
 import { authService, dbService } from 'fbase';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 
 const Profile = ({ userObj, refreshUser }) => {
@@ -13,7 +13,7 @@ const Profile = ({ userObj, refreshUser }) => {
     history.push("/");
   }
 
-  const getMyTweets = async () => {
+  const getMyTweets = useCallback(async () => {
     const setQuery = query(
       collection(dbService, "tweets"),
       where("creatorId", "==", userObj.uid)
@@ -22,11 +22,11 @@ const Profile = ({ userObj, refreshUser }) => {
     querySnapshot.forEach((doc) => {
       console.log(doc.id, " => ", doc.data());
     });
-  };
+  }, [userObj])
 
   useEffect(() => {
     getMyTweets();
-  }, [])
+  }, [getMyTweets])
 
   const onChange = (event) => {
     const {
