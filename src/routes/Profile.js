@@ -1,8 +1,8 @@
-import { updateProfile } from '@firebase/auth';
-import { collection, getDocs, query, where } from '@firebase/firestore';
-import { authService, dbService } from 'fbase';
-import React, { useCallback, useEffect, useState } from 'react';
-import { useHistory } from 'react-router';
+import { updateProfile } from "@firebase/auth";
+import { collection, getDocs, query, where } from "@firebase/firestore";
+import { authService, dbService } from "fbase";
+import React, { useCallback, useEffect, useState } from "react";
+import { useHistory } from "react-router";
 
 const Profile = ({ userObj, refreshUser }) => {
   const history = useHistory();
@@ -11,36 +11,33 @@ const Profile = ({ userObj, refreshUser }) => {
   const onLogOutClick = () => {
     authService.signOut();
     history.push("/");
-  }
+  };
 
   const getMyTweets = useCallback(async () => {
     const setQuery = query(
       collection(dbService, "tweets"),
       where("creatorId", "==", userObj.uid)
     );
-    const querySnapshot = await getDocs(setQuery);
-    querySnapshot.forEach((doc) => {
-      console.log(doc.id, " => ", doc.data());
-    });
-  }, [userObj])
+    await getDocs(setQuery);
+  }, [userObj]);
 
   useEffect(() => {
     getMyTweets();
-  }, [getMyTweets])
+  }, [getMyTweets]);
 
   const onChange = (event) => {
     const {
       target: { value },
     } = event;
     setNewDisplayName(value);
-  }
+  };
   const onSubmit = async (event) => {
     event.preventDefault();
     if (userObj.displayName !== newDisplayName) {
       await updateProfile(userObj, { displayName: newDisplayName });
-    };
+    }
     refreshUser();
-  }
+  };
 
   return (
     <div className="container">
@@ -62,9 +59,11 @@ const Profile = ({ userObj, refreshUser }) => {
           }}
         />
       </form>
-      <span className="formBtn cancelBtn logOut" onClick={onLogOutClick}>Log Out</span>
+      <span className="formBtn cancelBtn logOut" onClick={onLogOutClick}>
+        Log Out
+      </span>
     </div>
-  )
-}
+  );
+};
 
 export default Profile;

@@ -1,7 +1,7 @@
-import { addDoc, collection } from '@firebase/firestore';
-import { getDownloadURL, ref, uploadString } from '@firebase/storage';
-import { dbService, storageService } from 'fbase';
-import React, { useState } from 'react';
+import { addDoc, collection } from "@firebase/firestore";
+import { getDownloadURL, ref, uploadString } from "@firebase/storage";
+import { dbService, storageService } from "fbase";
+import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
@@ -9,7 +9,6 @@ import { faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
 const TweetFactory = ({ userObj }) => {
   const [tweet, setTweet] = useState("");
   const [attachment, setAttachment] = useState("");
-
   const onSubmit = async (event) => {
     if (tweet === "") {
       return;
@@ -20,7 +19,11 @@ const TweetFactory = ({ userObj }) => {
       //파일 경로 참조 만들기
       const attachmentRef = ref(storageService, `${userObj.uid}/${uuidv4()}`);
       //storage 참조 경로로 파일 업로드 하기
-      const uploadFile = await uploadString(attachmentRef, attachment, "data_url");
+      const uploadFile = await uploadString(
+        attachmentRef,
+        attachment,
+        "data_url"
+      );
       //storage에 있는 파일 URL로 다운로드 받기
       attachmentUrl = await getDownloadURL(uploadFile.ref);
     }
@@ -29,6 +32,7 @@ const TweetFactory = ({ userObj }) => {
       createdAt: Date.now(),
       creatorId: userObj.uid,
       attachmentUrl,
+      creatorProfile: userObj.displayName,
     };
 
     await addDoc(collection(dbService, "tweets"), tweetPosting);
@@ -36,11 +40,12 @@ const TweetFactory = ({ userObj }) => {
     setAttachment("");
   };
 
-
   const onChange = (event) => {
-    const { target: { value } } = event;
+    const {
+      target: { value },
+    } = event;
     setTweet(value);
-  }
+  };
 
   const onFileChange = (event) => {
     const {
@@ -52,12 +57,12 @@ const TweetFactory = ({ userObj }) => {
       const {
         currentTarget: { result },
       } = finishedEvent;
-      setAttachment(result)
-    }
+      setAttachment(result);
+    };
     reader.readAsDataURL(theFile);
-  }
+  };
 
-  const onClearAttachment = () => setAttachment("")
+  const onClearAttachment = () => setAttachment("");
 
   return (
     <form onSubmit={onSubmit} className="factoryForm">
@@ -101,7 +106,7 @@ const TweetFactory = ({ userObj }) => {
         </div>
       )}
     </form>
-  )
-}
+  );
+};
 
 export default TweetFactory;

@@ -34,6 +34,9 @@ form {
 
 footer {
   text-align: center;
+  position: relative;
+  bottom: 0;
+  margin: 20px 0;
 }
 
 footer span {
@@ -190,17 +193,24 @@ footer span {
 }
 
 .tweet h4 {
-  font-size: 14px;
+  font-size: 16px;
+  font-weight: 700;
+  margin-top: 20px;
+}
+
+.tweet h5 {
+  font-size: 12px;
+  margin-top: 15px;
+  color: gray;
+  text-align: end;
 }
 
 .tweet img {
-  right: -10px;
-  top: 20px;
-  position: absolute;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  margin-top: 10px;
+  border-radius: 5%;
+  width: 280px;
+  height: 280px;
+  overflow: hidden;
+  margin-top: 15px;
 }
 
 .tweet__actions {
@@ -285,4 +295,3 @@ footer span {
   font-size: 12px;
   text-decoration: underline;
 }
-
