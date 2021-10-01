@@ -53,6 +53,7 @@ footer span {
   max-width: 320px;
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .formInput {
@@ -63,6 +64,7 @@ footer span {
   text-align: center;
   background-color: white;
   color: black;
+  margin-top: 15px;
 }
 
 .formBtn {
@@ -76,9 +78,27 @@ footer span {
   cursor: pointer;
 }
 
+.preview {
+  margin-bottom: 10px;
+}
+.preview img {
+  width: 150px;
+  height: 150px;
+  margin-right: 10px;
+}
+
 .cancelBtn {
   cursor: pointer;
   background-color: tomato;
+}
+
+.profile__image {
+  border-radius: 50%;
+  width: 300px;
+  height: 300px;
+  overflow: hidden;
+  margin-bottom: 15px;
+  object-fit: contain;
 }
 
 /* Profile Page */
@@ -136,6 +156,7 @@ footer span {
   border-radius: 20px;
   color: white;
   box-sizing: border-box;
+  cursor: pointer;
 }
 
 .factoryInput__label {
