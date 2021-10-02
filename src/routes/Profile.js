@@ -11,6 +11,7 @@ const Profile = ({ userObj, refreshUser }) => {
   const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
   const [profile, setProfile] = useState("");
   const [url, setUrl] = useState("");
+  const [mytweets, setMyTweets] = useState([]);
 
   const onLogOutClick = () => {
     authService.signOut();
@@ -19,17 +20,22 @@ const Profile = ({ userObj, refreshUser }) => {
 
   //내가 쓴 tweet과 profiles가져오기
   const getMyTweets = useCallback(async () => {
-    const myTeets = query(
+    const tweetDoc = query(
       collection(dbService, "tweets"),
       where("creatorId", "==", userObj.uid)
     );
-    const myProfile = query(
+    const profileDoc = query(
       collection(dbService, "profiles"),
       where("creatorId", "==", userObj.uid)
     );
-    await getDocs(myTeets);
-    const querySnapshot = await getDocs(myProfile);
-    querySnapshot.forEach((doc) => {
+    // await getDocs(tweetDoc);
+    const myTweets = await getDocs(tweetDoc);
+    myTweets.forEach((doc) => {
+      setMyTweets((prev) => [doc.data(), ...prev]);
+    });
+
+    const myProfile = await getDocs(profileDoc);
+    myProfile.forEach((doc) => {
       if (doc.data().profileUrl) {
         setUrl((prev) => [doc.data().profileUrl, ...prev]);
       }
@@ -125,6 +131,15 @@ const Profile = ({ userObj, refreshUser }) => {
       <span className="formBtn cancelBtn logOut" onClick={onLogOutClick}>
         Log Out
       </span>
+      {mytweets.map((a) => {
+        return (
+          <>
+            {a.attachmentUrl && <img src={a.attachmentUrl} alt="img" />}
+            <h4>{a.text}</h4>
+            <h5>{a.creatorProfile}</h5>
+          </>
+        );
+      })}
     </div>
   );
 };

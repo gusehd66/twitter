@@ -157,6 +157,11 @@ footer span {
   color: white;
   box-sizing: border-box;
   cursor: pointer;
+  transition: 0.3s;
+}
+.factoryInput__arrow:hover {
+  color: #04aaff;
+  background-color: white;
 }
 
 .factoryInput__label {
