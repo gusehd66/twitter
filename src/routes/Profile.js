@@ -101,45 +101,54 @@ const Profile = ({ userObj, refreshUser }) => {
   const clearProfile = () => setProfile(null);
 
   return (
-    <div className="container">
-      {url && <img src={url[0]} alt="profile" className="profile__image" />}
-      {profile && (
-        <div className="preview">
-          <img src={profile} alt="profile" />
-          <button onClick={clearProfile}>Clear</button>
+    <div className="profile">
+      <div className="container">
+        {url && <img src={url[0]} alt="profile" className="profile__image" />}
+        {profile && (
+          <div className="preview">
+            <img src={profile} alt="profile" />
+            <button onClick={clearProfile}>Clear</button>
+          </div>
+        )}
+        <input type="file" accept="image/*" onChange={profileChange} />
+        <form onSubmit={onSubmit} className="profileForm">
+          <input
+            onChange={onChange}
+            type="text"
+            autoFocus
+            placeholder="Display name"
+            value={newDisplayName}
+            className="formInput"
+          />
+          <input
+            type="submit"
+            value="Update Profile"
+            className="formBtn"
+            style={{
+              marginTop: 10,
+            }}
+          />
+        </form>
+        <span className="formBtn cancelBtn logOut" onClick={onLogOutClick}>
+          Log Out
+        </span>
+        <div className="profile__tweet">
+          {mytweets.map((a) => {
+            return (
+              <div className="tweet">
+                {a.attachmentUrl && (
+                  <img
+                    src={a.attachmentUrl}
+                    alt="img"
+                    className="tweet__image"
+                  />
+                )}
+                <h4>{a.text}</h4>
+              </div>
+            );
+          })}
         </div>
-      )}
-      <input type="file" accept="image/*" onChange={profileChange} />
-      <form onSubmit={onSubmit} className="profileForm">
-        <input
-          onChange={onChange}
-          type="text"
-          autoFocus
-          placeholder="Display name"
-          value={newDisplayName}
-          className="formInput"
-        />
-        <input
-          type="submit"
-          value="Update Profile"
-          className="formBtn"
-          style={{
-            marginTop: 10,
-          }}
-        />
-      </form>
-      <span className="formBtn cancelBtn logOut" onClick={onLogOutClick}>
-        Log Out
-      </span>
-      {mytweets.map((a) => {
-        return (
-          <>
-            {a.attachmentUrl && <img src={a.attachmentUrl} alt="img" />}
-            <h4>{a.text}</h4>
-            <h5>{a.creatorProfile}</h5>
-          </>
-        );
-      })}
+      </div>
     </div>
   );
 };

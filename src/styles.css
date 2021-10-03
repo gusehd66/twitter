@@ -115,6 +115,16 @@ footer span {
   margin-top: 50px;
 }
 
+.profile__tweet h4 {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.profile__tweet {
+  margin-top: 20px;
+  width: 320px;
+}
+
 /* Twitter Factory */
 
 .factoryForm {
