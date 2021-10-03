@@ -8,7 +8,6 @@ import { faTrash, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 const Tweet = ({ tweetObj, isOwner }) => {
   const [editing, setEditing] = useState(false);
   const [newTweet, setNewTweet] = useState(tweetObj.text);
-
   const onDeleteClick = async () => {
     const okDelete = window.confirm(
       "Are you sure you want to delete this tweet?"

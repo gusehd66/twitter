@@ -94,7 +94,7 @@ footer span {
 
 .profile__image {
   border-radius: 50%;
-  width: 300px;
+  width: 320px;
   height: 300px;
   overflow: hidden;
   margin-bottom: 15px;
@@ -219,7 +219,7 @@ footer span {
   margin-bottom: 20px;
   background-color: white;
   width: 100%;
-  max-width: 320px;
+  width: 320px;
   padding: 20px;
   border-radius: 10px;
   position: relative;

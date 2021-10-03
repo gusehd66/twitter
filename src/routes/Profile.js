@@ -30,7 +30,8 @@ const Profile = ({ userObj, refreshUser }) => {
     );
     // await getDocs(tweetDoc);
     const myTweets = await getDocs(tweetDoc);
-    myTweets.forEach((doc) => {
+    setMyTweets([]);
+    myTweets.forEach(async (doc) => {
       setMyTweets((prev) => [doc.data(), ...prev]);
     });
 
@@ -133,17 +134,17 @@ const Profile = ({ userObj, refreshUser }) => {
           Log Out
         </span>
         <div className="profile__tweet">
-          {mytweets.map((a) => {
+          {mytweets.map((tweet) => {
             return (
               <div className="tweet">
-                {a.attachmentUrl && (
+                {tweet.attachmentUrl && (
                   <img
-                    src={a.attachmentUrl}
+                    src={tweet.attachmentUrl}
                     alt="img"
                     className="tweet__image"
                   />
                 )}
-                <h4>{a.text}</h4>
+                <h4>{tweet.text}</h4>
               </div>
             );
           })}
