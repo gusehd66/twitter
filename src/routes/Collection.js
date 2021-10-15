@@ -4,8 +4,8 @@ import React, { useEffect, useState } from "react";
 
 const Collection = () => {
   const [tweets, setTweets] = useState([]);
-  const [click, setClick] = useState({ a: "", b: "" });
-  const [check, setCheck] = useState(true);
+  const [click, setClick] = useState({ clickId: "", check: "" });
+  const [checkId, setCheckId] = useState(true);
 
   useEffect(() => {
     onSnapshot(
@@ -21,11 +21,10 @@ const Collection = () => {
   }, []);
 
   const clickImage = (event) => {
-    const a = event.target.parentElement.id;
-    setCheck(!check);
-    const b = check;
-    setClick({ a, b });
-    console.log(click);
+    const clickId = event.target.parentElement.id;
+    setCheckId(!checkId);
+    const check = checkId;
+    setClick({ clickId, check });
   };
 
   return (
@@ -37,7 +36,9 @@ const Collection = () => {
               src={tweet.attachmentUrl}
               alt="tweetImage"
               className={
-                click.b && tweet.id === click.a ? "clickImage" : "tweetImage"
+                click.check && tweet.id === click.clickId
+                  ? "clickImage"
+                  : "tweetImage"
               }
             />
           )}
