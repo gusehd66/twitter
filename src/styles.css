@@ -43,6 +43,16 @@ footer span {
   color: #04aaff;
 }
 
+nav {
+  width: 100%;
+  position: fixed;
+  background-color: #000;
+  z-index: 9;
+  top: 0;
+  padding: 10px 0px;
+  opacity: 0.9;
+}
+
 .icon {
   color: #04aaff;
   transition: 0.1s;

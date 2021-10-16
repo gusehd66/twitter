@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTwitter } from "@fortawesome/free-brands-svg-icons";
@@ -7,7 +6,7 @@ import { faImages, faUser } from "@fortawesome/free-solid-svg-icons";
 const Navigation = ({ userObj }) => {
   return (
     <nav>
-      <ul style={{ display: "flex", justifyContent: "center", marginTop: 50 }}>
+      <ul style={{ display: "flex", justifyContent: "center", marginTop: 30 }}>
         <li>
           <Link to="/collection" style={{ marginRight: 50 }}>
             <FontAwesomeIcon icon={faImages} size="2x" className="icon" />
