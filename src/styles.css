@@ -111,16 +111,16 @@ nav {
   background-color: tomato;
 }
 
+/* Profile Page */
+
 .profile__image {
   border-radius: 50%;
-  width: 320px;
-  height: 300px;
+  width: 100%;
+  height: auto;
   overflow: hidden;
   margin-bottom: 15px;
   object-fit: contain;
 }
-
-/* Profile Page */
 
 .profileForm {
   border-bottom: 1px solid rgba(255, 255, 255, 0.9);
@@ -172,11 +172,13 @@ nav {
   border-radius: 20px;
   font-weight: 500;
   font-size: 12px;
+  width: 100%;
 }
 
 .factoryInput__arrow {
   position: absolute;
   right: 0;
+  top: 0;
   background-color: #04aaff;
   height: 40px;
   width: 40px;
