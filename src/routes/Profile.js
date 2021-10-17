@@ -31,7 +31,7 @@ const Profile = ({ userObj, refreshUser }) => {
     // await getDocs(tweetDoc);
     const myTweets = await getDocs(tweetDoc);
     setMyTweets([]);
-    myTweets.forEach(async (doc) => {
+    myTweets.forEach((doc) => {
       setMyTweets((prev) => [doc.data(), ...prev]);
     });
 
@@ -98,7 +98,6 @@ const Profile = ({ userObj, refreshUser }) => {
     };
     fileReader.readAsDataURL(profileImage);
   };
-
   const clearProfile = () => setProfile(null);
 
   return (
@@ -136,7 +135,7 @@ const Profile = ({ userObj, refreshUser }) => {
         <div className="profile__tweet">
           {mytweets.map((tweet) => {
             return (
-              <div className="tweet">
+              <div className="tweet" key={tweet.createdAt}>
                 {tweet.attachmentUrl && (
                   <img
                     src={tweet.attachmentUrl}
