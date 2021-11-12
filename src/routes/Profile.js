@@ -77,7 +77,6 @@ const Profile = ({ userObj, refreshUser }) => {
       profileUrl,
       creatorProfile: userObj.displayName,
     };
-
     await addDoc(collection(dbService, "profiles"), profileInfo);
     setProfile("");
 
